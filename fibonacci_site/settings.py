@@ -24,8 +24,7 @@ SECRET_KEY = 'django-insecure-+7lf#&2*hfao*(z(8whbs!1p96a8(_wpsj7wsf1#$g%9icp7wp
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = ['fibonacci-generator.onrender.com']
+ALLOWED_HOSTS = ['fibonacci-generator-v42l.onrender.com']
 
 
 # Application definition
