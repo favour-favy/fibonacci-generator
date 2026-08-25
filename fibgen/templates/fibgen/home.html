@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fibonacci Generator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a2b7a;
+            margin-bottom: 8px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        input[type="number"] {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #764ba2;
+        }
+
+        button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(118,75,162,0.4);
+        }
+
+        .error {
+            background: #ffe3e3;
+            color: #c0392b;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sequence {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .num {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            min-width: 50px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            animation: pop 0.35s ease backwards;
+        }
+
+        .num:nth-child(odd) {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        @keyframes pop {
+            from { opacity: 0; transform: scale(0.5); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 25px;
+            color: #999;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🔢 Fibonacci Generator</h1>
+        <p class="subtitle">Enter a number to generate the sequence</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="number" name="n" placeholder="e.g. 10" value="{{ n_value }}" required>
+            <button type="submit">Generate</button>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if result %}
+            <div class="sequence">
+                {% for num in result %}
+                    <div class="num" style="animation-delay: {{ forloop.counter0 }}0ms">{{ num }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <p class="footer-note">Bincom Academy — Python Beginners Class</p>
+    </div>
+</body>
+</html>
